@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AaDS-Project", "AaDS-Project.csproj", "{3AEB8B2C-BC87-4873-9C1A-DC322B6F744D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3AEB8B2C-BC87-4873-9C1A-DC322B6F744D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AEB8B2C-BC87-4873-9C1A-DC322B6F744D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AEB8B2C-BC87-4873-9C1A-DC322B6F744D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AEB8B2C-BC87-4873-9C1A-DC322B6F744D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C3B68B37-1D40-4B5F-82A6-76D95A0AAABE}
+	EndGlobalSection
+EndGlobal
