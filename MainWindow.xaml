@@ -4,6 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Loaded="MainWindow_Loaded">
-    <Grid />
+        Title="MainWindow" Height="600" Width="1200" Loaded="MainWindow_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="6*"/>
+        </Grid.ColumnDefinitions>
+        <Border BorderBrush="DarkBlue" BorderThickness="4" Grid.Column="1">
+            <Canvas x:Name="cvs" MouseWheel="cvs_MouseWheel" MouseDown="cvs_MouseDown" MouseMove="cvs_MouseMove" MouseUp="cvs_MouseUp" Grid.Column="1" Background="White" Width="auto" Height="auto"/>
+        </Border>
+        <Border BorderBrush="DarkBlue" BorderThickness="4" Grid.Column="0">
+            <DockPanel Grid.Column="0" Background="LightSkyBlue">
+                <StackPanel/>
+            </DockPanel>
+        </Border>
+    </Grid>
 </Window>
