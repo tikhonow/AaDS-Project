@@ -6,15 +6,22 @@ using System.Collections.Generic;
 
 namespace AaDS_Project.Data
 {
-    public struct Person
+    public class Person
     {
+        private static uint _count = 0;
+
         public Person(string name, Dictionary<Time, string> schedule)
         {
             Name = name;
             Schedule = schedule;
+
+            Id = _count;
+            _count++;
         }
 
         public string Name { get; set; }
+
+        public uint Id { get; }
 
         /// <summary>График, позволяющий установить местороложение Person в указанное время</summary>
         public Dictionary<Time, string> Schedule { get; set; }
