@@ -1,6 +1,8 @@
-﻿namespace AaDS_Project.Data
+﻿using System.Collections.Generic;
+
+namespace AaDS_Project.Data
 {
-    public struct Place
+    public class Place
     {
         public Place(string name, int area)
         {
@@ -18,5 +20,13 @@
         public double Density => Area / (double) NumberOfPeople;
 
         public override string ToString() => Name;
+    }
+
+    public static class Places
+    {
+        public static List<string> Names = new List<string>
+        {
+            "Home", "Shop", "None"
+        };
     }
 }
