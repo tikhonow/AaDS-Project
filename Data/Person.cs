@@ -8,30 +8,19 @@ namespace AaDS_Project.Data
 {
     public struct Person
     {
-        private string _name;
-        private Dictionary<Time, string> _schedule;
-
         public Person(string name, Dictionary<Time, string> schedule)
         {
-            this._name = name;
-            this._schedule = schedule;
+            Name = name;
+            Schedule = schedule;
         }
 
-        public string Name
-        {
-            get => _name;
-            set => _name = value;
-        }
+        public string Name { get; set; }
 
         /// <summary>График, позволяющий установить местороложение Person в указанное время</summary>
-        public Dictionary<Time, string> Schedule
-        {
-            get => _schedule;
-            set => _schedule = value;
-        }
+        public Dictionary<Time, string> Schedule { get; set; }
 
-        public bool IsEmpty => this._name == null || this._schedule == null;
+        public bool IsEmpty => Name == null || Schedule == null;
 
-        public override string ToString() => this._name;
+        public override string ToString() => Name;
     }
 }
