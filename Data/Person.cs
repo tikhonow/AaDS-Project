@@ -9,9 +9,9 @@ namespace AaDS_Project.Data
     public struct Person
     {
         private string _name;
-        private Dictionary<Time, Place> _schedule;
+        private Dictionary<Time, Location> _schedule;
 
-        public Person(string name, Dictionary<Time, Place> schedule)
+        public Person(string name, Dictionary<Time, Location> schedule)
         {
             this._name = name;
             this._schedule = schedule;
@@ -23,7 +23,8 @@ namespace AaDS_Project.Data
             set => _name = value;
         }
 
-        public Dictionary<Time, Place> Schedule
+        /// <summary>График, позволяющий установить местороложение Person в указанное время</summary>
+        public Dictionary<Time, Location> Schedule
         {
             get => _schedule;
             set => _schedule = value;
