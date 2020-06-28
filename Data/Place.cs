@@ -2,21 +2,21 @@
 {
     public struct Place
     {
-        private string _name;
-        private int _numberOfPeople;
-
-        public string Name
+        public Place(string name, int area)
         {
-            get => _name;
-            set => _name = value;
+            Name = name;
+            Area = area;
+            NumberOfPeople = 0;
         }
 
-        public int NumberOfPeople
-        {
-            get => _numberOfPeople;
-            set => _numberOfPeople = value;
-        }
+        public string Name { get; set; }
 
-        public override string ToString() => this._name;
+        public int NumberOfPeople { get; set; }
+
+        public int Area { get; set; }
+
+        public double Density => Area / (double) NumberOfPeople;
+
+        public override string ToString() => Name;
     }
 }
