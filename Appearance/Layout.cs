@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using AaDS_Project.Data;
 
 namespace AaDS_Project.Appearance
 
@@ -9,7 +10,9 @@ namespace AaDS_Project.Appearance
     public class Layout
     {
         protected ViewPort vp;
+
         public VisualHost visuals = new VisualHost();
+
         public List<Drawable> drawables = new List<Drawable>();
 
         private Map _map = new Map();
@@ -17,9 +20,8 @@ namespace AaDS_Project.Appearance
         double cvs_width;
         double cvs_height;
 
-        public Layout(double width, double height)
+        public Layout(double width, double height, List<Place> places)
         {
-            drawables.Add(_map);
             vp.x1 = 0;
             vp.y1 = 0;
             vp.x2 = cvs_width;
@@ -28,6 +30,13 @@ namespace AaDS_Project.Appearance
 
             cvs_width = width;
             cvs_height = height;
+
+            drawables.Add(_map);
+            foreach (var place in places)
+            {
+                Verticle verticle = new Verticle(place);
+                drawables.Add(verticle);
+            }
         }
 
         private double lastX;
@@ -44,13 +53,13 @@ namespace AaDS_Project.Appearance
             double dx = (x - lastX) / vp.scale;
             double dy = (y - lastY) / vp.scale;
 
-            if (vp.x2 + dx > -600  && vp.x1 + dx < 0)
+            if (vp.x2 + dx > -300  && vp.x1 + dx < 0)
             {
                 vp.x1 += dx;
                 vp.x2 += dx;
             }
 
-            if (vp.y1 + dy > -150 && vp.y1 + dy < 0)
+            if (vp.y1 + dy > -500 && vp.y1 + dy < 0)
             {
                 vp.y1 += dy;
                 vp.y2 += dy;

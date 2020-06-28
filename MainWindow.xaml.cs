@@ -12,13 +12,17 @@ namespace AaDS_Project
     /// </summary>
     public partial class MainWindow : Window
     {
+        PlaceContainer places;
+
         Layout layout;
+
         bool onhold = false;
 
         public MainWindow()
         {
             InitializeComponent();
-            layout = new Layout(cvs.Width, cvs.Height);
+            places = new PlaceContainer();
+            layout = new Layout(cvs.Width, cvs.Height, places.GetPlaces());
             cvs.Children.Add(layout.visuals);
             layout.Refresh();
         }

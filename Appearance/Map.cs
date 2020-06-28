@@ -23,9 +23,8 @@ namespace AaDS_Project.Appearance
 
         public override void Draw(DrawingContext ctx, ViewPort vp)
         {
-            var resizedBitmap = new TransformedBitmap(_bmp, new ScaleTransform(1, 0.7));
-            Rect drawingRegion = new Rect(vp.x1, vp.y1, _bmp.Width, _bmp.Height * 0.7);
-            ctx.DrawImage(resizedBitmap, drawingRegion);
+            Rect drawingRegion = new Rect(vp.x1, vp.y1, _bmp.Width, _bmp.Height);
+            ctx.DrawImage(_bmp, drawingRegion);
         }
 
         
