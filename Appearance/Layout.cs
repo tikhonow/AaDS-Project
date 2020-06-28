@@ -44,7 +44,7 @@ namespace AaDS_Project.Appearance
             double dx = (x - lastX) / vp.scale;
             double dy = (y - lastY) / vp.scale;
 
-            if (vp.x2 + dx > -400  && vp.x1 + dx < 0)
+            if (vp.x2 + dx > -600  && vp.x1 + dx < 0)
             {
                 vp.x1 += dx;
                 vp.x2 += dx;
