@@ -1,21 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace AaDS_Project.Data
 {
     public class Place
     {
-        public Place(string name, int area)
+        public Place(string name, int area, Point coordinates)
         {
             Name = name;
             Area = area;
+            Coordinates = coordinates;
 
-            Edges = new List<int>();
             NumberOfPeople = 0;
         }
 
         // TODO переместить в PlaceContainer?
         public List<int> Edges { get; set; }
+
+        public Point Coordinates { get; set; }
 
         public string Name { get; set; }
 
@@ -44,9 +47,11 @@ namespace AaDS_Project.Data
         {
             _places = new List<Place>
             {
-                new Place("Home", 0),
-                new Place("Shop", 0)
+                new Place("Home", 0, new Point(0, 0)),
+                new Place("Shop", 0, new Point(0, 0))
             };
+
+            // _places[0].Edges = new List<int> {1, 3, 5}; // Установка связей
         }
 
         // TODO возможно int index
@@ -56,6 +61,9 @@ namespace AaDS_Project.Data
             var minDensity = double.MaxValue;
 
             // TODO поиск пути DFS
+            // way - искомый путь, minDensity - минимальная концентрация людей, позволяет получить "лучший" путь, сравнивая
+            // с localDensity при полном проходе DFS. DFS хранит путь и localDensity - сумма концентраций в каждой пройденой точке,
+            // за исключением точки назначения
 
             return way;
         }
