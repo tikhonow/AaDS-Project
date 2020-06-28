@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AaDS_Project.Data
 {
@@ -8,8 +9,13 @@ namespace AaDS_Project.Data
         {
             Name = name;
             Area = area;
+
+            Edges = new List<int>();
             NumberOfPeople = 0;
         }
+
+        // TODO переместить в PlaceContainer?
+        public List<int> Edges { get; set; }
 
         public string Name { get; set; }
 
@@ -28,5 +34,30 @@ namespace AaDS_Project.Data
         {
             "Home", "Shop", "None"
         };
+    }
+
+    public class PlaceContainer
+    {
+        private readonly List<Place> _places;
+
+        public PlaceContainer()
+        {
+            _places = new List<Place>
+            {
+                new Place("Home", 0),
+                new Place("Shop", 0)
+            };
+        }
+
+        // TODO возможно int index
+        public List<int> GetWay(string start, string finish)
+        {
+            var way = new List<int>();
+            var minDensity = double.MaxValue;
+
+            // TODO поиск пути DFS
+
+            return way;
+        }
     }
 }

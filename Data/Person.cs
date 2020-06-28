@@ -31,4 +31,9 @@ namespace AaDS_Project.Data
 
         public override string ToString() => Name;
     }
+
+    public class PersonContainer
+    {
+        // TODO
+    }
 }
