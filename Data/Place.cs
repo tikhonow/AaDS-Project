@@ -24,7 +24,7 @@ namespace AaDS_Project.Data
 
     public static class Places
     {
-        public static List<string> Names = new List<string>
+        public static readonly List<string> Names = new List<string>
         {
             "Home", "Shop", "None"
         };
