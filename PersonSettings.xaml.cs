@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -8,7 +9,9 @@ namespace AaDS_Project
 {
     public partial class PersonSettings : Window
     {
-        private Dictionary<Time, string> _schedule;
+        private readonly Dictionary<Time, string> _schedule;
+
+        // TODO реализовать подгрузку пользователя
 
         public PersonSettings()
         {
@@ -27,8 +30,14 @@ namespace AaDS_Project
                 {Time.T16, "Home"}, {Time.T17, "Home"},
                 {Time.T18, "Home"}, {Time.T19, "Home"},
                 {Time.T20, "Home"}, {Time.T21, "Home"},
-                {Time.T22, "Home"}, {Time.T23, "Home"},
+                {Time.T22, "Home"}, {Time.T23, "Home"}
             };
+
+            for (var i = 0; i < 24; i++) TimeBox.Items.Add($"{i:00}:00");
+            TimeBox.SelectedIndex = 0;
+
+            foreach (var place in Places.Names) PlaceBox.Items.Add(place);
+            PlaceBox.SelectedIndex = 0;
         }
 
         private void NameBox_GotFocus(object sender, RoutedEventArgs e)
@@ -46,6 +55,28 @@ namespace AaDS_Project
 
             nameBox.Text = "Имя";
             nameBox.Foreground = Brushes.DimGray;
+        }
+
+        private void TimeBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!(sender is ComboBox time)) return;
+
+            var index = (Time) time.SelectedIndex;
+            PlaceBox.SelectedIndex = Places.Names.IndexOf(_schedule[index]);
+        }
+
+        private void PlaceBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!(sender is ComboBox place)) return;
+
+            var index = (Time) TimeBox.SelectedIndex;
+            _schedule[index] = place.SelectedValue.ToString();
+        }
+
+        private void PersonSettings_Closed(object sender, EventArgs e)
+        {
+            var person = new Person(NameBox.Text, _schedule);
+            // TODO реализовать сохранение 
         }
     }
 }

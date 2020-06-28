@@ -5,10 +5,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:AaDS_Project"
         mc:Ignorable="d"
-        Title="PersonSettings" Height="450" Width="800">
+        Title="PersonSettings" Height="125" Width="132" Closed="PersonSettings_Closed">
     <Grid>
-        <TextBox x:Name="NameBox" Text="Имя" Width="100" Height="20" Foreground="DimGray" GotFocus="NameBox_GotFocus"
-                 LostFocus="NameBox_LostFocus" />
+        <TextBox x:Name="NameBox" Text="Имя" Width="118" Height="20" Margin="0,0,0,0" HorizontalAlignment="Left"
+                 VerticalAlignment="Top" Foreground="DimGray" GotFocus="NameBox_GotFocus" LostFocus="NameBox_LostFocus" />
+        <ComboBox x:Name="TimeBox" Width="118" Height="20" Margin="0,22,0,0" HorizontalAlignment="Left"
+                  VerticalAlignment="Top" SelectionChanged="TimeBox_SelectionChanged" />
+        <ComboBox x:Name="PlaceBox" Width="118" Height="20" Margin="0,44,0,0" HorizontalAlignment="Left"
+                  VerticalAlignment="Top" SelectionChanged="PlaceBox_SelectionChanged" />
+        <!-- <Button x:Name="SaveButton" Content="Save" Width="118" Height="20" Margin="0,66,0,0" -->
+        <!--         HorizontalAlignment="Left" VerticalAlignment="Top" /> -->
 
     </Grid>
 </Window>
