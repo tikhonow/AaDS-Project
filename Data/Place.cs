@@ -25,7 +25,7 @@ namespace AaDS_Project.Data
 
         public int Area { get; set; }
 
-        public double Density => Area / (double) NumberOfPeople;
+        public double Density => NumberOfPeople / Area;
 
         public override string ToString() => Name;
 
@@ -54,13 +54,11 @@ namespace AaDS_Project.Data
                 // 180 - X offset, 115 - Y offset
                 new Place("A building", 200, new Point(740, 585)),
                 new Place("C building", 120, new Point(815, 585)),
-                new Place("B building", 120, new Point(695, 595))
+                new Place("B building", 120, new Point(695, 595)),
+
             };
         }
-
-
         public List<Place> GetPlaces() => new List<Place>(_places);
-
 
         // TODO возможно int index
         public List<int> GetWay(string start, string finish)

@@ -17,6 +17,7 @@
             <DockPanel Grid.Column="0" Background="LightSkyBlue">
                 <StackPanel/>
             </DockPanel>
+
         </Border>
     </Grid>
 </Window>
