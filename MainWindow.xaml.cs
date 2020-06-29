@@ -16,6 +16,8 @@ namespace AaDS_Project
 
         Layout layout;
 
+        Way way;
+
         bool onhold = false;
 
         public MainWindow()
@@ -24,9 +26,11 @@ namespace AaDS_Project
             places = new PlaceContainer();
             layout = new Layout(cvs.Width, cvs.Height, places.GetPlaces());
             cvs.Children.Add(layout.visuals);
+
+            way = new Way(places.GetWay(0, 0));
+            layout.drawables.Add(way);
             layout.Refresh();
         }
-
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -57,5 +61,16 @@ namespace AaDS_Project
         {
             
         }
+
+        /// TODO 
+
+        // слайдер хэндлер, при изменении значения =>
+        // foreach place in places => place.peoples = 0,
+        // foreach person in personContainer => { places[person.Schedule[time(slider.Value)].ToPlaceID]++; }
+        // Вышеописанная строчка - берём по значению слайдера время, от него получаем строковое значение ->
+        // -> затем получаем ID этого значения и инкрементируем значение числа людей в этом месте
+        // layout = new Layout(cvs.Width, cvs.Height, places.GetPlaces()); - обновляем холсты
+
+        /// TODO
     }
 }

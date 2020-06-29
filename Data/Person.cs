@@ -25,11 +25,12 @@ namespace AaDS_Project.Data
         public int Id => _id;
 
         /// <summary>График, позволяющий установить местороложение Person в указанное время</summary>
-        public Dictionary<Time, string> Schedule { get; set; }
+        public Dictionary<Time, string> Schedule { get ; set ; }
 
         public bool IsEmpty => Name == null || Schedule == null;
 
         public override string ToString() => Name;
+
     }
 
     public class PersonContainer
