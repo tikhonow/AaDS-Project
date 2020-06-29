@@ -61,12 +61,16 @@ namespace AaDS_Project.Data
                 new Place("S building", 170, new Point(535, 600)),
                 new Place("G building", 160, new Point(525, 655)),
                 new Place("M building", 200, new Point(740, 725)),
+                new Place("L building", 200, new Point(480, 745)),
                 new Place("South Promenade", 100, new Point(780, 225)),
                 new Place("North Promenade", 100, new Point(480, 235)),
                 new Place("Parkland", 300, new Point(710, 435)),
                 new Place("9 building", 200, new Point(940, 430)),
                 new Place("10 building", 200, new Point(970, 330)),
                 new Place("11 building", 200, new Point(980, 240)),
+                new Place("8 building", 200, new Point(330, 600)),
+                new Place("7 building", 200, new Point(230, 450)),
+                new Place("6 building", 200, new Point(190, 300))
             };
         }
         public List<Place> GetPlaces() => new List<Place>(_places);
