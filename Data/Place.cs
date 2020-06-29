@@ -31,6 +31,7 @@ namespace AaDS_Project.Data
         public override string ToString() => Name;
     }
 
+    // Возможно этот класс не понадобится, так как будем инициализировать каждое место вручную
     public static class Places
     {
         public static readonly List<string> Names = new List<string>
@@ -47,12 +48,16 @@ namespace AaDS_Project.Data
         {
             _places = new List<Place>
             {
-                new Place("Home", 0, new Point(0, 0)),
-                new Place("Shop", 0, new Point(0, 0))
+                // 180 - X offset, 115 - Y offset
+                new Place("A building", 200, new Point(740, 585)),
+                new Place("C building", 120, new Point(815, 585)),
+                new Place("B building", 120, new Point(695, 595))
             };
 
             // _places[0].Edges = new List<int> {1, 3, 5}; // Установка связей
         }
+
+        public List<Place> GetPlaces() => _places;
 
         // TODO возможно int index
         public List<int> GetWay(string start, string finish)
