@@ -55,15 +55,61 @@ namespace AaDS_Project.Data
         }
 
         // TODO возможно int index
-        public List<int> GetWay(string start, string finish)
+        public List<int> GetWay(int start, int finish)
         {
-            var way = new List<int>();
-            var minDensity = double.MaxValue;
 
             // TODO поиск пути DFS
             // way - искомый путь, minDensity - минимальная концентрация людей, позволяет получить "лучший" путь, сравнивая
             // с localDensity при полном проходе DFS. DFS хранит путь и localDensity - сумма концентраций в каждой пройденой точке,
             // за исключением точки назначения
+
+            //var minElement = tuple.OrderBy(x=>x.Item1).Min(x=>x.Item2).ToList();
+
+
+            var way = new List<int>(); //TODO: Rename
+            var minDensity = double.MaxValue;
+            var path = new List<int>();
+            var visited = new List<int>();
+
+            List<int> resultWay = DFS(start, finish, path, visited, minDensity, 0, way);
+
+            return resultWay;
+        }
+
+        private List<int> DFS(int current, int finish, List<int> path, List<int> visited, double minDensity, double localDensity, List<int> way)
+        {
+
+            var place = _places[current];
+
+            path.Add(current);
+            visited.Add(current);
+
+            if (current == finish && localDensity - _places[current].Density < minDensity)
+            {
+                for (int i = 0; i < path.Count; i++)
+                {
+                    way.Add(path[i]);
+                }
+
+                minDensity = localDensity;
+
+                path.RemoveAt(path.Count - 1);
+                visited.RemoveAt(visited.Count - 1);
+
+                return way;
+
+            }
+
+            for (int i = 0; i < place.Edges.Count; i++)
+            {
+                if (!visited.Contains(place.Edges[i]))
+                {
+                    DFS(place.Edges[i], finish, path, visited, minDensity, localDensity + _places[current].Density, way);
+                }
+            }
+
+            path.RemoveAt(path.Count - 1);
+            visited.RemoveAt(visited.Count - 1);
 
             return way;
         }
