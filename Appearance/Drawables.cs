@@ -1,8 +1,15 @@
-﻿using System.Windows.Media;
+﻿#region
+
+using System.Windows.Media;
+
+#endregion
 
 namespace AaDS_Project.Appearance
 {
-    public struct ViewPort { public double x1, y1, x2, y2, scale; }
+    public struct ViewPort
+    {
+        public double x1, y1, x2, y2, scale;
+    }
 
     public abstract class Drawable
     {

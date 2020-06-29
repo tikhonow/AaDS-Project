@@ -1,7 +1,10 @@
-﻿using System;
+﻿#region
+
 using System.Collections.Generic;
-using System.Windows;
 using System.Linq;
+using System.Windows;
+
+#endregion
 
 namespace AaDS_Project.Data
 {
@@ -18,17 +21,17 @@ namespace AaDS_Project.Data
 
         public List<int> Edges { get; set; }
 
-        public string Name { get; set; }
+        public string Name { get; }
 
         public int NumberOfPeople { get; set; }
 
-        public int Area { get; set; }
+        public int Area { get; }
 
-        public double Density => NumberOfPeople / Area;
+        public double Density => (double) NumberOfPeople / Area;
+
+        public Point Coordinate { get; }
 
         public override string ToString() => Name;
-
-        public Point Coordinate { get; set; }
     }
 
 
@@ -110,28 +113,19 @@ namespace AaDS_Project.Data
 
         public List<Place> GetWay(int start, int finish)
         {
-
-            // TODO поиск пути DFS
-            // way - искомый путь, minDensity - минимальная концентрация людей, позволяет получить "лучший" путь, сравнивая
-            // с localDensity при полном проходе DFS. DFS хранит путь и localDensity - сумма концентраций в каждой пройденой точке,
-            // за исключением точки назначения
-
-            //var minElement = tuple.OrderBy(x=>x.Item1).Min(x=>x.Item2).ToList();
-
-
             var way = new List<int>();
-            var minDensity = double.MaxValue;
+            const double minDensity = double.MaxValue;
             var path = new List<int>();
             var visited = new List<int>();
 
-            double _ = DFS(start, finish, path, visited, minDensity, 0, way);
+            DFS(start, finish, path, visited, minDensity, 0, way);
 
-            return GetString(way);
+            return way.Select(i => _places[i]).ToList();
         }
 
-        private double DFS(int current, int finish, List<int> path, List<int> visited, double minDensity, double localDensity, List<int> way)
+        private double DFS(int current, int finish, List<int> path, List<int> visited, double minDensity,
+            double localDensity, List<int> way)
         {
-
             var place = _places[current];
 
             path.Add(current);
@@ -139,7 +133,6 @@ namespace AaDS_Project.Data
 
             if (current == finish && localDensity - _places[current].Density < minDensity)
             {
-
                 way.Clear();
                 way.AddRange(path);
 
@@ -152,19 +145,13 @@ namespace AaDS_Project.Data
             }
 
             foreach (var vertex in place.Edges)
-            {
                 if (!visited.Contains(vertex))
-                {
                     minDensity = DFS(vertex, finish, path, visited, minDensity, localDensity + place.Density, way);
-                }
-            }
 
             path.RemoveAt(path.Count - 1);
             visited.RemoveAt(visited.Count - 1);
 
             return minDensity;
         }
-
-        private List<Place> GetString(List<int> way) => way.Select(i => _places[i]).ToList();
     }
 }
