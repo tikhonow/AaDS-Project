@@ -10,34 +10,30 @@ namespace AaDS_Project
     public partial class PersonSettings : Window
     {
         private readonly Dictionary<Time, string> _schedule;
-
-        // TODO реализовать подгрузку пользователя
+        private static int _id = -1;
 
         public PersonSettings()
         {
             InitializeComponent();
 
-            _schedule = new Dictionary<Time, string>
+            if (_id == -1)
             {
-                {Time.T0, "Home"}, {Time.T1, "Home"},
-                {Time.T2, "Home"}, {Time.T3, "Home"},
-                {Time.T4, "Home"}, {Time.T5, "Home"},
-                {Time.T6, "Home"}, {Time.T7, "Home"},
-                {Time.T8, "Home"}, {Time.T9, "Home"},
-                {Time.T10, "Home"}, {Time.T11, "Home"},
-                {Time.T12, "Home"}, {Time.T13, "Home"},
-                {Time.T14, "Home"}, {Time.T15, "Home"},
-                {Time.T16, "Home"}, {Time.T17, "Home"},
-                {Time.T18, "Home"}, {Time.T19, "Home"},
-                {Time.T20, "Home"}, {Time.T21, "Home"},
-                {Time.T22, "Home"}, {Time.T23, "Home"}
-            };
+                _schedule = new Dictionary<Time, string>();
+                for (var j = Time.T0; j <= Time.T23; j++) _schedule.Add(j, "Home");
+            }
+            else
+            {
+                _schedule = MainWindow.PersonContainer.Users[_id].Schedule;
+            }
 
-            for (var i = 0; i < 24; i++) TimeBox.Items.Add($"{i:00}:00");
+            for (var i = 0; i < 24; i++)
+            {
+                TimeBox.Items.Add($"{i:00}:00");
+                PlaceBox.Items.Add(_schedule[(Time) i]);
+            }
+
             TimeBox.SelectedIndex = 0;
-
-            foreach (var place in Places.Names) PlaceBox.Items.Add(place);
-            PlaceBox.SelectedIndex = 0;
+            PlaceBox.SelectedIndex = Places.Names.IndexOf(_schedule[Time.T0]);
         }
 
         private void NameBox_GotFocus(object sender, RoutedEventArgs e)
@@ -75,8 +71,10 @@ namespace AaDS_Project
 
         private void PersonSettings_Closed(object sender, EventArgs e)
         {
-            var person = new Person(NameBox.Text, _schedule);
-            // TODO реализовать сохранение 
+            if (_id != -1) return;
+
+            MainWindow.PersonContainer.Users.Add(new Person(NameBox.Text, _schedule));
+            _id = MainWindow.PersonContainer.Users.Count - 1;
         }
     }
 }

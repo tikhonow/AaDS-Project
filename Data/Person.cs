@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Input;
 
 #endregion
 
@@ -23,12 +22,12 @@ namespace AaDS_Project.Data
             _count++;
         }
 
-        public string Name { get; set; }
+        public string Name { get; }
 
         public int Id => _id;
 
         /// <summary>График, позволяющий установить местороложение Person в указанное время</summary>
-        public Dictionary<Time, string> Schedule { get; set; }
+        public Dictionary<Time, string> Schedule { get; }
 
         public bool IsEmpty => Name == null || Schedule == null;
 
@@ -37,49 +36,52 @@ namespace AaDS_Project.Data
 
     public class PersonContainer
     {
-        private readonly List<Person> _users;
-
         public PersonContainer()
         {
-            _users = new List<Person>();
+            Users = new List<Person>();
         }
 
-        public void GetUsers(int number)
+        public PersonContainer(int num)
         {
+            Users = new List<Person>();
+
             var random = new Random();
-            
-            RandomizeUsers(number, random);
+            RandomizeUsers(num, random);
         }
+
+        public List<Person> Users { get; }
 
         private void RandomizeUsers(int numberOfUsers, Random random)
         {
-            for (int i = 0; i < numberOfUsers; i++)
+            for (var i = 0; i < numberOfUsers; i++)
             {
-                var schedule = new Dictionary<Time, String>();
+                var schedule = new Dictionary<Time, string>();
+                for (var j = Time.T0; j <= Time.T23; j++) schedule.Add(j, "Home");
+
                 schedule[RandomizeTime(random)] = Places.Names[random.Next(Places.Names.Count)];
-                
+
                 var name = UsersNames.Names[random.Next(UsersNames.Names.Count)];
                 var person = new Person(name, schedule);
-                
-                _users.Add(person);
+
+                Users.Add(person);
             }
         }
 
         private static Time RandomizeTime(Random random)
         {
-            int min = (int)Enum.GetValues(typeof(Time)).Cast<Time>().Min();
-            int max = (int)Enum.GetValues(typeof(Time)).Cast<Time>().Max();
+            var min = (int) Enum.GetValues(typeof(Time)).Cast<Time>().Min();
+            var max = (int) Enum.GetValues(typeof(Time)).Cast<Time>().Max();
 
-            return (Time)random.Next(min, max + 1);
+            return (Time) random.Next(min, max + 1);
         }
     }
-    
-    public static class UsersNames
+
+    internal static class UsersNames
     {
         public static readonly List<string> Names = new List<string>
         {
             "Misha", "Masha", "Sasha", "Zhenya", "Ruslan", "Nikita", "Lilit",
-            "Yu", "Anna", "Ilya", "Elena", "Andrey", "Vasilii", "Ivan", "Peter", 
+            "Yu", "Anna", "Ilya", "Elena", "Andrey", "Vasilii", "Ivan", "Peter",
             "Tanya", "Olya", "Hui"
         };
     }
