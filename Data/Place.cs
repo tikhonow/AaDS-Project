@@ -55,7 +55,10 @@ namespace AaDS_Project.Data
                 new Place("A building", 200, new Point(740, 585)),
                 new Place("C building", 120, new Point(815, 585)),
                 new Place("B building", 120, new Point(695, 595)),
-
+                new Place("E building", 120, new Point(835, 545)),
+                new Place("F building", 120, new Point(880, 505)),
+                new Place("D building", 120, new Point(625, 600)),
+                new Place("S building", 120, new Point(535, 600))
             };
         }
         public List<Place> GetPlaces() => new List<Place>(_places);
