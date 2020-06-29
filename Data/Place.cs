@@ -70,7 +70,13 @@ namespace AaDS_Project.Data
                 new Place("11 building", 200, new Point(980, 240)),
                 new Place("8 building", 200, new Point(330, 600)),
                 new Place("7 building", 200, new Point(230, 450)),
-                new Place("6 building", 200, new Point(190, 300))
+                new Place("6 building", 200, new Point(190, 300)),
+                new Place("5 building", 200, new Point(290, 250)),
+                new Place("4 building", 200, new Point(300, 350)),
+                new Place("3 building", 200, new Point(340, 420)),
+                new Place("2 building", 200, new Point(385, 480)),
+                new Place("1 building", 200, new Point(440, 545)),
+                new Place("Ajax 1", 200, new Point(140, 180)),
             };
         }
         public List<Place> GetPlaces() => new List<Place>(_places);
