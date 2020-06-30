@@ -33,13 +33,14 @@ namespace AaDS_Project.Appearance
                 12,
                 Brushes.Black);
 
+            place.NumberOfPeople = 500;
             if (place.Density > 1)
             {
                 _verticleDensityColor = Brushes.Red;
             }
             else if (place.Density > 0.6)
             {
-                _congestionText.SetForegroundBrush(Brushes.Yellow);
+                _verticleDensityColor = Brushes.Yellow;
             }
             else
             {
