@@ -29,7 +29,7 @@ namespace AaDS_Project.Appearance
                 14,
                 Brushes.Black);
 
-            _congestionText = new FormattedText(place.Density.ToString(),
+            _congestionText = new FormattedText(place.Density.ToString("0.00"),
                 CultureInfo.GetCultureInfo("en-us"),
                 FlowDirection.LeftToRight,
                 new Typeface("Verdana"),
@@ -39,7 +39,7 @@ namespace AaDS_Project.Appearance
             if (place.Density > 1)
                 _verticleDensityColor = Brushes.Red;
             else if (place.Density > 0.6)
-                _congestionText.SetForegroundBrush(Brushes.Yellow);
+                _verticleDensityColor = Brushes.Yellow;
             else
                 _verticleDensityColor = Brushes.Green;
         }

@@ -16,7 +16,15 @@
         </Border>
         <Border BorderBrush="DarkBlue" BorderThickness="4" Grid.Column="0">
             <DockPanel Background="LightSkyBlue">
-                <StackPanel />
+                <StackPanel >
+                    <Slider Width="100" Maximum="23" ValueChanged="Slider_ValueChanged" SmallChange="1" TickPlacement="TopLeft"/>
+                    <Label x:Name="HourLabel" Width="100" Content="Hour: 00:00"/>
+
+                    <Label Width="100" Content="From:" HorizontalContentAlignment="Center"/>
+                    <ComboBox x:Name="FromBox" Width="120" SelectionChanged="FromBox_SelectionChanged"/>
+                    <Label Width="100" Content="To:" HorizontalContentAlignment="Center"/>
+                    <ComboBox x:Name="ToBox" Width="120" SelectionChanged="FromBox_SelectionChanged"/>
+                </StackPanel>
             </DockPanel>
         </Border>
     </Grid>

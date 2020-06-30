@@ -1,7 +1,9 @@
 ﻿#region
 
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using AaDS_Project.Appearance;
 using AaDS_Project.Data;
 
@@ -14,25 +16,40 @@ namespace AaDS_Project
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static PersonContainer Persons = new PersonContainer(400);
+        public static readonly PersonContainer Persons = new PersonContainer(5000);
 
         private readonly Layout _layout;
 
         private bool _onHold;
         private readonly PlaceContainer _places;
 
-        private readonly Way _way;
+        private Way _way;
 
         public MainWindow()
         {
             InitializeComponent();
+
             _places = new PlaceContainer();
-            _layout = new Layout(cvs.Width, cvs.Height, _places.GetPlaces());
+            foreach (var pers in Persons.Users)
+            {
+                _places.AddPerson(pers.Schedule[Time.T0]);
+            }
+
+            _layout = new Layout(cvs.Width, cvs.Height, _places.GetPlaces);
             cvs.Children.Add(_layout.visuals);
 
             _way = new Way(_places.GetWay(0, 0));
             _layout.drawables.Add(_way);
             _layout.Refresh();
+
+            foreach (var i in Places.Names)
+            {
+                FromBox.Items.Add(i);
+                ToBox.Items.Add(i);
+            }
+
+            FromBox.SelectedIndex = 0;
+            ToBox.SelectedIndex = 0;
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -47,11 +64,10 @@ namespace AaDS_Project
 
         private void cvs_MouseMove(object sender, MouseEventArgs e)
         {
-            if (_onHold)
-            {
-                _layout.OnMove(e.GetPosition(cvs).X, e.GetPosition(cvs).Y);
-                _layout.Refresh();
-            }
+            if (!_onHold) return;
+
+            _layout.OnMove(e.GetPosition(cvs).X, e.GetPosition(cvs).Y);
+            _layout.Refresh();
         }
 
         private void cvs_MouseUp(object sender, MouseButtonEventArgs e)
@@ -63,15 +79,35 @@ namespace AaDS_Project
         {
         }
 
-        /// TODO 
+        private void FromBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
-        // слайдер хэндлер, при изменении значения =>
-        // foreach place in places => place.peoples = 0,
-        // foreach person in personContainer => { places[person.Schedule[time(slider.Value)].ToPlaceID]++; }
-        // Вышеописанная строчка - берём по значению слайдера время, от него получаем строковое значение ->
-        // -> затем получаем ID этого значения и инкрементируем значение числа людей в этом месте
-        // layout = new Layout(cvs.Width, cvs.Height, places.GetPlaces()); - обновляем холсты
+            var start = FromBox.SelectedIndex;
+            var finish = ToBox.SelectedIndex;
 
-        /// TODO
+            if (start == -1 || finish == -1) return;
+
+            var way = _places.GetWay(start, finish);
+
+            _layout.drawables.Remove(_way);
+            _way = new Way(way);
+            _layout.drawables.Add(_way);
+            _layout.Refresh();
+
+        }
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            var slide = (Slider)sender;
+            var val = (int)slide.Value;
+            HourLabel.Content = $"Hour: {val:00}:00";
+
+            foreach (var place in _places.GetPlaces)
+                place.NumberOfPeople = 0;
+
+            foreach (var pers in Persons.Users)
+                _places.AddPerson(pers.Schedule[(Time)val]);
+
+        }
     }
 }
