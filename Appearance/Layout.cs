@@ -1,24 +1,27 @@
-﻿using System;
+﻿#region
+
 using System.Collections.Generic;
-using System.Text;
 using AaDS_Project.Data;
+
+#endregion
 
 namespace AaDS_Project.Appearance
 
 {
-
     public class Layout
     {
-        protected ViewPort vp;
+        private readonly Map _map = new Map();
+        private readonly double cvs_height;
 
-        public VisualHost visuals = new VisualHost();
+        private readonly double cvs_width;
 
         public List<Drawable> drawables = new List<Drawable>();
 
-        private Map _map = new Map();
+        private double lastX;
+        private double lastY;
 
-        double cvs_width;
-        double cvs_height;
+        public VisualHost visuals = new VisualHost();
+        protected ViewPort vp;
 
         public Layout(double width, double height, List<Place> places)
         {
@@ -34,7 +37,7 @@ namespace AaDS_Project.Appearance
             drawables.Add(_map);
             foreach (var place in places)
             {
-                Verticle verticle = new Verticle(place);
+                var verticle = new Verticle(place);
                 drawables.Add(verticle);
             }
         }
@@ -50,9 +53,6 @@ namespace AaDS_Project.Appearance
             }
         }
 
-        private double lastX;
-        private double lastY;
-
         public void OnHold(double x, double y)
         {
             lastX = x;
@@ -61,10 +61,10 @@ namespace AaDS_Project.Appearance
 
         public void OnMove(double x, double y)
         {
-            double dx = (x - lastX) / vp.scale;
-            double dy = (y - lastY) / vp.scale;
+            var dx = (x - lastX) / vp.scale;
+            var dy = (y - lastY) / vp.scale;
 
-            if (vp.x2 + dx > -300  && vp.x1 + dx < 0)
+            if (vp.x2 + dx > -300 && vp.x1 + dx < 0)
             {
                 vp.x1 += dx;
                 vp.x2 += dx;
@@ -84,22 +84,21 @@ namespace AaDS_Project.Appearance
         {
             if (vp.scale < 4)
             {
-                int NewWidth = (int)(vp.x2 - vp.x1) / 2;
-                int NewHeight = (int)(vp.y2 - vp.y1) / 2;
+                var NewWidth = (int) (vp.x2 - vp.x1) / 2;
+                var NewHeight = (int) (vp.y2 - vp.y1) / 2;
                 vp.x1 = x / vp.scale + vp.x1 - NewWidth / 2;
                 vp.y1 = y / vp.scale + vp.y1 - NewHeight / 2;
                 vp.scale *= 2;
                 vp.x2 = vp.x1 + NewWidth;
                 vp.y2 = vp.y1 + NewHeight;
-                    
             }
         }
 
         public void ZoomOut(double x, double y)
         {
             if (vp.scale > 0.2) vp.scale /= 2;
-            int NewWidth = (int)(vp.x2 - vp.x1) * 2;
-            int NewHeight = (int)(vp.y2 - vp.y1) * 2;
+            var NewWidth = (int) (vp.x2 - vp.x1) * 2;
+            var NewHeight = (int) (vp.y2 - vp.y1) * 2;
             vp.x1 = x / vp.scale + vp.x1 - NewWidth / 2;
             vp.y1 = y / vp.scale + vp.y1 - NewHeight / 2;
             vp.scale /= 2;
@@ -108,6 +107,5 @@ namespace AaDS_Project.Appearance
         }
 
         public void Refresh() => visuals.Redraw(drawables, vp);
-
     }
 }

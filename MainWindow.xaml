@@ -7,15 +7,24 @@
         Title="App" Height="600" Width="900" Loaded="MainWindow_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="6*" />
         </Grid.ColumnDefinitions>
         <Border BorderBrush="DarkBlue" BorderThickness="4" Grid.Column="1">
-            <Canvas x:Name="cvs" MouseWheel="cvs_MouseWheel" MouseDown="cvs_MouseDown" MouseMove="cvs_MouseMove" MouseUp="cvs_MouseUp" Grid.Column="1" Background="White" Width="auto" Height="auto"/>
+            <Canvas x:Name="cvs" MouseWheel="cvs_MouseWheel" MouseDown="cvs_MouseDown" MouseMove="cvs_MouseMove"
+                    MouseUp="cvs_MouseUp" Background="White" Width="auto" Height="auto" />
         </Border>
         <Border BorderBrush="DarkBlue" BorderThickness="4" Grid.Column="0">
-            <DockPanel Grid.Column="0" Background="LightSkyBlue">
-                <StackPanel/>
+            <DockPanel Background="LightSkyBlue">
+                <StackPanel >
+                    <Slider Width="100" Maximum="23" ValueChanged="Slider_ValueChanged" SmallChange="1" TickPlacement="TopLeft"/>
+                    <Label x:Name="HourLabel" Width="100" Content="Hour: 00:00"/>
+
+                    <Label Width="100" Content="From:" HorizontalContentAlignment="Center"/>
+                    <ComboBox x:Name="FromBox" Width="120" SelectionChanged="FromBox_SelectionChanged"/>
+                    <Label Width="100" Content="To:" HorizontalContentAlignment="Center"/>
+                    <ComboBox x:Name="ToBox" Width="120" SelectionChanged="FromBox_SelectionChanged"/>
+                </StackPanel>
             </DockPanel>
         </Border>
     </Grid>
