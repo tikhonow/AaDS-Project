@@ -1,5 +1,6 @@
 ﻿#region
 
+using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Media;
@@ -36,12 +37,31 @@ namespace AaDS_Project.Appearance
                 12,
                 Brushes.Black);
 
-            if (place.Density > 1)
-                _verticleDensityColor = Brushes.Red;
-            else if (place.Density > 0.6)
-                _verticleDensityColor = Brushes.Yellow;
-            else
-                _verticleDensityColor = Brushes.Green;
+            _verticleDensityColor = GetColor(place.Density);
+        }
+
+        private static SolidColorBrush GetColor(double density)
+        {
+            if (density > 1)
+                density = 1;
+
+            var ind = (int) (density * 10);
+
+            return ind switch
+            {
+                0 => Brushes.Lime,
+                1 => Brushes.Chartreuse,
+                2 => Brushes.LawnGreen,
+                3 => Brushes.LawnGreen,
+                4 => Brushes.GreenYellow,
+                5 => Brushes.Yellow,
+                6 => Brushes.Goldenrod,
+                7 => Brushes.DarkOrange,
+                8 => Brushes.OrangeRed,
+                9 => Brushes.OrangeRed,
+                10 => Brushes.Red,
+                _ => Brushes.Blue
+            };
         }
 
         public override void Draw(DrawingContext ctx, ViewPort vp)

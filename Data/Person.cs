@@ -66,12 +66,15 @@ namespace AaDS_Project.Data
 
         private static string RandomPlace(Time time, Random random)
         {
-            if (time >= Time.T9 && time <= Time.T22 && random.Next() % 5 != 0)
+            if (time >= Time.T9 && time <= Time.T22 && random.Next() % 6 != 0)
                 return Places.Names[random.Next(10)];
-            if ((time == Time.T23 || time <= Time.T9) && random.Next() % 5 != 0)
+            if (time >= Time.T9 && time <= Time.T22)
+                return Places.Names[random.Next(8, Places.Names.Count)];
+
+            if ((time == Time.T23 || time <= Time.T8) && random.Next() % 5 != 0)
                 return Places.Names[random.Next(10, Places.Names.Count)];
-            
-            return Places.Names[random.Next(Places.Names.Count)];
+
+            return Places.Names[random.Next(0, 12)];
         }
     }
 
