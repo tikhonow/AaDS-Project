@@ -137,12 +137,10 @@ namespace AaDS_Project.Data
                 way.Clear();
                 way.AddRange(path);
 
-                minDensity = localDensity;
-
                 path.RemoveAt(path.Count - 1);
                 visited.RemoveAt(visited.Count - 1);
 
-                return minDensity;
+                return localDensity - _places[current].Density;
             }
 
             foreach (var vertex in place.Edges)

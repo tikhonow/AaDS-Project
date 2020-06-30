@@ -42,6 +42,17 @@ namespace AaDS_Project.Appearance
             }
         }
 
+        public void ChangeVerticles(List<Place> places)
+        {
+            drawables.Clear();
+            drawables.Add(_map);
+            foreach (var place in places)
+            {
+                Verticle verticle = new Verticle(place);
+                drawables.Add(verticle);
+            }
+        }
+
         public void OnHold(double x, double y)
         {
             lastX = x;

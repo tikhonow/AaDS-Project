@@ -24,6 +24,8 @@ namespace AaDS_Project
         private readonly PlaceContainer _places;
 
         private Way _way;
+        private int start = -1;
+        private int finish = -1;
 
         public MainWindow()
         {
@@ -82,8 +84,8 @@ namespace AaDS_Project
         private void FromBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            var start = FromBox.SelectedIndex;
-            var finish = ToBox.SelectedIndex;
+            start = FromBox.SelectedIndex;
+            finish = ToBox.SelectedIndex;
 
             if (start == -1 || finish == -1) return;
 
@@ -108,6 +110,16 @@ namespace AaDS_Project
             foreach (var pers in Persons.Users)
                 _places.AddPerson(pers.Schedule[(Time)val]);
 
+
+            _layout.ChangeVerticles(_places.GetPlaces);
+
+            var way = _places.GetWay(start, finish);
+
+            _layout.drawables.Remove(_way);
+            _way = new Way(way);
+            _layout.drawables.Add(_way);
+
+            _layout.Refresh();
         }
     }
 }
