@@ -11,101 +11,101 @@ namespace AaDS_Project.Appearance
     public class Layout
     {
         private readonly Map _map = new Map();
-        private readonly double cvs_height;
+        private readonly double _cvsHeight;
 
-        private readonly double cvs_width;
+        private readonly double _cvsWidth;
 
-        public List<Drawable> drawables = new List<Drawable>();
+        public List<Drawable> Drawables = new List<Drawable>();
 
-        private double lastX;
-        private double lastY;
+        private double _lastX;
+        private double _lastY;
 
-        public VisualHost visuals = new VisualHost();
-        protected ViewPort vp;
+        public VisualHost Visuals = new VisualHost();
+        protected ViewPort Vp;
 
         public Layout(double width, double height, List<Place> places)
         {
-            vp.x1 = 0;
-            vp.y1 = 0;
-            vp.x2 = cvs_width;
-            vp.y2 = cvs_height;
-            vp.scale = 1;
+            Vp.X1 = 0;
+            Vp.Y1 = 0;
+            Vp.X2 = _cvsWidth;
+            Vp.Y2 = _cvsHeight;
+            Vp.Scale = 1;
 
-            cvs_width = width;
-            cvs_height = height;
+            _cvsWidth = width;
+            _cvsHeight = height;
 
-            drawables.Add(_map);
+            Drawables.Add(_map);
             foreach (var place in places)
             {
                 var verticle = new Verticle(place);
-                drawables.Add(verticle);
+                Drawables.Add(verticle);
             }
         }
 
         public void ChangeVerticles(List<Place> places)
         {
-            drawables.Clear();
-            drawables.Add(_map);
+            Drawables.Clear();
+            Drawables.Add(_map);
             foreach (var place in places)
             {
-                Verticle verticle = new Verticle(place);
-                drawables.Add(verticle);
+                var verticle = new Verticle(place);
+                Drawables.Add(verticle);
             }
         }
 
         public void OnHold(double x, double y)
         {
-            lastX = x;
-            lastY = y;
+            _lastX = x;
+            _lastY = y;
         }
 
         public void OnMove(double x, double y)
         {
-            var dx = (x - lastX) / vp.scale;
-            var dy = (y - lastY) / vp.scale;
+            var dx = (x - _lastX) / Vp.Scale;
+            var dy = (y - _lastY) / Vp.Scale;
 
-            if (vp.x2 + dx > -300 && vp.x1 + dx < 0)
+            if (Vp.X2 + dx > -300 && Vp.X1 + dx < 0)
             {
-                vp.x1 += dx;
-                vp.x2 += dx;
+                Vp.X1 += dx;
+                Vp.X2 += dx;
             }
 
-            if (vp.y1 + dy > -500 && vp.y1 + dy < 0)
+            if (Vp.Y1 + dy > -500 && Vp.Y1 + dy < 0)
             {
-                vp.y1 += dy;
-                vp.y2 += dy;
+                Vp.Y1 += dy;
+                Vp.Y2 += dy;
             }
 
-            lastX = x;
-            lastY = y;
+            _lastX = x;
+            _lastY = y;
         }
 
         public void ZoomIn(double x, double y)
         {
-            if (vp.scale < 4)
+            if (Vp.Scale < 4)
             {
-                var NewWidth = (int) (vp.x2 - vp.x1) / 2;
-                var NewHeight = (int) (vp.y2 - vp.y1) / 2;
-                vp.x1 = x / vp.scale + vp.x1 - NewWidth / 2;
-                vp.y1 = y / vp.scale + vp.y1 - NewHeight / 2;
-                vp.scale *= 2;
-                vp.x2 = vp.x1 + NewWidth;
-                vp.y2 = vp.y1 + NewHeight;
+                var NewWidth = (int) (Vp.X2 - Vp.X1) / 2;
+                var NewHeight = (int) (Vp.Y2 - Vp.Y1) / 2;
+                Vp.X1 = x / Vp.Scale + Vp.X1 - NewWidth / 2;
+                Vp.Y1 = y / Vp.Scale + Vp.Y1 - NewHeight / 2;
+                Vp.Scale *= 2;
+                Vp.X2 = Vp.X1 + NewWidth;
+                Vp.Y2 = Vp.Y1 + NewHeight;
             }
         }
 
         public void ZoomOut(double x, double y)
         {
-            if (vp.scale > 0.2) vp.scale /= 2;
-            var NewWidth = (int) (vp.x2 - vp.x1) * 2;
-            var NewHeight = (int) (vp.y2 - vp.y1) * 2;
-            vp.x1 = x / vp.scale + vp.x1 - NewWidth / 2;
-            vp.y1 = y / vp.scale + vp.y1 - NewHeight / 2;
-            vp.scale /= 2;
-            vp.x2 = vp.x1 + NewWidth;
-            vp.y2 = vp.y1 + NewHeight;
+            if (Vp.Scale > 0.2) Vp.Scale /= 2;
+            var NewWidth = (int) (Vp.X2 - Vp.X1) * 2;
+            var NewHeight = (int) (Vp.Y2 - Vp.Y1) * 2;
+            Vp.X1 = x / Vp.Scale + Vp.X1 - NewWidth / 2;
+            Vp.Y1 = y / Vp.Scale + Vp.Y1 - NewHeight / 2;
+            Vp.Scale /= 2;
+            Vp.X2 = Vp.X1 + NewWidth;
+            Vp.Y2 = Vp.Y1 + NewHeight;
         }
 
-        public void Refresh() => visuals.Redraw(drawables, vp);
+        public void Refresh() => Visuals.Redraw(Drawables, Vp);
     }
 }

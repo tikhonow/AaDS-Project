@@ -47,8 +47,8 @@ namespace AaDS_Project.Appearance
         public override void Draw(DrawingContext ctx, ViewPort vp)
         {
             var pt = new Point(
-                _placeCoordinate.X + vp.x1 / vp.scale,
-                _placeCoordinate.Y + vp.y1 / vp.scale);
+                _placeCoordinate.X + vp.X1 / vp.Scale,
+                _placeCoordinate.Y + vp.Y1 / vp.Scale);
 
             ctx.DrawEllipse(_verticleDensityColor, new Pen(Brushes.Beige, 1), pt, 10, 10);
             ctx.DrawText(_formattedText, new Point(pt.X - 30, pt.Y + 5));

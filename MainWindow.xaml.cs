@@ -38,10 +38,10 @@ namespace AaDS_Project
             }
 
             _layout = new Layout(cvs.Width, cvs.Height, _places.GetPlaces);
-            cvs.Children.Add(_layout.visuals);
+            cvs.Children.Add(_layout.Visuals);
 
             _way = new Way(_places.GetWay(0, 0));
-            _layout.drawables.Add(_way);
+            _layout.Drawables.Add(_way);
             _layout.Refresh();
 
             foreach (var i in Places.Names)
@@ -91,9 +91,9 @@ namespace AaDS_Project
 
             var way = _places.GetWay(start, finish);
 
-            _layout.drawables.Remove(_way);
+            _layout.Drawables.Remove(_way);
             _way = new Way(way);
-            _layout.drawables.Add(_way);
+            _layout.Drawables.Add(_way);
             _layout.Refresh();
 
         }
@@ -115,9 +115,9 @@ namespace AaDS_Project
 
             var way = _places.GetWay(start, finish);
 
-            _layout.drawables.Remove(_way);
+            _layout.Drawables.Remove(_way);
             _way = new Way(way);
-            _layout.drawables.Add(_way);
+            _layout.Drawables.Add(_way);
 
             _layout.Refresh();
         }

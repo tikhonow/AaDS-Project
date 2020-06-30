@@ -8,7 +8,7 @@ namespace AaDS_Project.Appearance
 {
     public struct ViewPort
     {
-        public double x1, y1, x2, y2, scale;
+        public double X1, Y1, X2, Y2, Scale;
     }
 
     public abstract class Drawable

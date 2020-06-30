@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 #endregion
 
@@ -10,7 +9,7 @@ namespace AaDS_Project.Data
 {
     public class Person
     {
-        private static int _count = 0;
+        private static int _count;
 
         public Person(string name, Dictionary<Time, string> schedule)
         {
@@ -55,8 +54,8 @@ namespace AaDS_Project.Data
             for (var i = 0; i < numberOfUsers; i++)
             {
                 var schedule = new Dictionary<Time, string>();
-                for (var j = Time.T0; j <= Time.T23; j++) 
-                    schedule.Add(j, Places.Names[random.Next(Places.Names.Count)]);
+                for (var j = Time.T0; j <= Time.T23; j++)
+                    schedule.Add(j, RandomPlace(j, random));
 
                 var name = UsersNames.Names[random.Next(UsersNames.Names.Count)];
                 var person = new Person(name, schedule);
@@ -65,13 +64,15 @@ namespace AaDS_Project.Data
             }
         }
 
-        /*private static Time RandomizeTime(Random random)
+        private static string RandomPlace(Time time, Random random)
         {
-            var min = (int)Enum.GetValues(typeof(Time)).Cast<Time>().Min();
-            var max = (int)Enum.GetValues(typeof(Time)).Cast<Time>().Max();
-
-            return (Time)random.Next(min, max + 1);
-        }*/
+            if (time >= Time.T9 && time <= Time.T22 && random.Next() % 5 != 0)
+                return Places.Names[random.Next(10)];
+            if ((time == Time.T23 || time <= Time.T9) && random.Next() % 5 != 0)
+                return Places.Names[random.Next(10, Places.Names.Count)];
+            
+            return Places.Names[random.Next(Places.Names.Count)];
+        }
     }
 
     internal static class UsersNames

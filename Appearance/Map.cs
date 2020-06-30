@@ -25,7 +25,7 @@ namespace AaDS_Project.Appearance
 
         public override void Draw(DrawingContext ctx, ViewPort vp)
         {
-            var drawingRegion = new Rect(vp.x1, vp.y1, _bmp.Width, _bmp.Height);
+            var drawingRegion = new Rect(vp.X1, vp.Y1, _bmp.Width, _bmp.Height);
             ctx.DrawImage(_bmp, drawingRegion);
         }
     }

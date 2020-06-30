@@ -24,14 +24,14 @@ namespace AaDS_Project.Appearance
             _geometry.Clear();
             var path = new PathFigure();
             path.StartPoint = new Point(
-                _places[0].Coordinate.X + vp.x1 / vp.scale,
-                _places[0].Coordinate.Y + vp.y1 / vp.scale);
+                _places[0].Coordinate.X + vp.X1 / vp.Scale,
+                _places[0].Coordinate.Y + vp.Y1 / vp.Scale);
 
             for (var i = 1; i < _places.Count; i++)
             {
                 var pt = new Point(
-                    _places[i].Coordinate.X + vp.x1 / vp.scale,
-                    _places[i].Coordinate.Y + vp.y1 / vp.scale);
+                    _places[i].Coordinate.X + vp.X1 / vp.Scale,
+                    _places[i].Coordinate.Y + vp.Y1 / vp.Scale);
 
                 var edge = new LineSegment(pt, true);
                 path.Segments.Add(edge);
