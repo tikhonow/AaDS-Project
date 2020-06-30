@@ -1,19 +1,21 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Windows;
-using System.Collections.Generic;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media.Imaging;
 using System.Windows.Media;
-using System.Drawing;
+using System.Windows.Media.Imaging;
+
+#endregion
 
 namespace AaDS_Project.Appearance
 {
     public class Map : Drawable
     {
-        private BitmapImage _bmp = new BitmapImage(new Uri("..\\..\\..\\Resources\\map.jpg", UriKind.Relative));
-        public double width;
+        private readonly BitmapImage
+            _bmp = new BitmapImage(new Uri("..\\..\\..\\Resources\\map.jpg", UriKind.Relative));
+
         public double height;
+        public double width;
 
         public Map()
         {
@@ -23,10 +25,8 @@ namespace AaDS_Project.Appearance
 
         public override void Draw(DrawingContext ctx, ViewPort vp)
         {
-            Rect drawingRegion = new Rect(vp.x1, vp.y1, _bmp.Width, _bmp.Height);
+            var drawingRegion = new Rect(vp.x1, vp.y1, _bmp.Width, _bmp.Height);
             ctx.DrawImage(_bmp, drawingRegion);
         }
-
-        
     }
 }

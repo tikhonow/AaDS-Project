@@ -1,13 +1,10 @@
-﻿using System;
-using System.Windows;
-using System.Collections;
-using System.Text;
-using System.Windows.Media;
-using System.Collections.Generic;
-using System.Windows.Shapes;
-using System.Windows.Media.Imaging;
-using System.Windows.Controls;
+﻿#region
 
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Media;
+
+#endregion
 
 namespace AaDS_Project.Appearance
 {
@@ -20,25 +17,22 @@ namespace AaDS_Project.Appearance
             visualCollection = new VisualCollection(this);
         }
 
+        protected override int VisualChildrenCount => visualCollection.Count;
+
         protected override Visual GetVisualChild(int index)
         {
             return visualCollection[index];
         }
 
-        protected override int VisualChildrenCount => visualCollection.Count;
-
         public void Redraw(List<Drawable> drawables, ViewPort vp)
         {
-            DrawingVisual drawingVisuals = new DrawingVisual();
+            var drawingVisuals = new DrawingVisual();
 
             visualCollection.Clear();
 
-            using (DrawingContext dc = drawingVisuals.RenderOpen())
+            using (var dc = drawingVisuals.RenderOpen())
             {
-                foreach (var drawable in drawables)
-                {
-                    drawable.Draw(dc, vp);
-                }
+                foreach (var drawable in drawables) drawable.Draw(dc, vp);
             }
 
             visualCollection.Add(drawingVisuals);

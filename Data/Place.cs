@@ -1,7 +1,10 @@
-﻿using System;
+﻿#region
+
 using System.Collections.Generic;
-using System.Windows;
 using System.Linq;
+using System.Windows;
+
+#endregion
 
 namespace AaDS_Project.Data
 {
@@ -18,17 +21,17 @@ namespace AaDS_Project.Data
 
         public List<int> Edges { get; set; }
 
-        public string Name { get; set; }
+        public string Name { get; }
 
         public int NumberOfPeople { get; set; }
 
-        public int Area { get; set; }
+        public int Area { get; }
 
-        public double Density => NumberOfPeople / Area;
+        public double Density => (double)NumberOfPeople / Area;
+
+        public Point Coordinate { get; }
 
         public override string ToString() => Name;
-
-        public Point Coordinate { get; set; }
     }
 
 
@@ -37,7 +40,10 @@ namespace AaDS_Project.Data
     {
         public static readonly List<string> Names = new List<string>
         {
-            "Home", "Shop", "None"
+            "A building", "C building", "B building", "E building", "F building", "D building", "S building", "G building",
+            "M building", "L building", "South Promenade", "North Promenade", "Parkland", "9 building", "10 building",
+            "11 building", "8 building", "7 building", "6 building", "5 building", "4 building", "3 building", "2 building",
+            "1 building","Ajax 1"
         };
     }
 
@@ -77,61 +83,50 @@ namespace AaDS_Project.Data
                 new Place("Ajax 1", 200, new Point(140, 180)) // 24
             };
 
-            _places[0].Edges = new List<int> {1, 2, 8, 12};
-            _places[1].Edges = new List<int> {0, 3, 8};
-            _places[2].Edges = new List<int> {0, 5, 8};
-            _places[3].Edges = new List<int> {1, 4, 12};
-            _places[4].Edges = new List<int> {3, 13};
-            _places[5].Edges = new List<int> {2, 6, 7};
-            _places[6].Edges = new List<int> {5, 7, 23};
-            _places[7].Edges = new List<int> {5, 6, 9};
-            _places[8].Edges = new List<int> {0, 1, 2};
-            _places[9].Edges = new List<int> {7, 16, 23};
-            _places[10].Edges = new List<int> {11, 12, 13, 14, 15};
-            _places[11].Edges = new List<int> {10, 12, 19, 20, 21};
-            _places[12].Edges = new List<int> {0, 3, 10, 11, 13, 22, 23};
-            _places[13].Edges = new List<int> {4, 10, 12, 14};
-            _places[14].Edges = new List<int> {10, 13, 15};
-            _places[15].Edges = new List<int> {10, 14};
-            _places[16].Edges = new List<int> {9, 17, 22, 23};
-            _places[17].Edges = new List<int> {16, 18, 19, 20, 21, 22};
-            _places[18].Edges = new List<int> {17, 19, 20, 24};
-            _places[19].Edges = new List<int> {17, 18, 20, 24};
-            _places[20].Edges = new List<int> {17, 18, 19, 21};
-            _places[21].Edges = new List<int> {11, 17, 20, 22};
-            _places[22].Edges = new List<int> {12, 16, 17, 21, 23};
-            _places[23].Edges = new List<int> {6, 9, 12, 16, 22};
-            _places[24].Edges = new List<int> {18, 19};
+            _places[0].Edges = new List<int> { 1, 2, 8, 12 };
+            _places[1].Edges = new List<int> { 0, 3, 8 };
+            _places[2].Edges = new List<int> { 0, 5, 8 };
+            _places[3].Edges = new List<int> { 1, 4, 12 };
+            _places[4].Edges = new List<int> { 3, 13 };
+            _places[5].Edges = new List<int> { 2, 6, 7 };
+            _places[6].Edges = new List<int> { 5, 7, 23 };
+            _places[7].Edges = new List<int> { 5, 6, 9 };
+            _places[8].Edges = new List<int> { 0, 1, 2 };
+            _places[9].Edges = new List<int> { 7, 16, 23 };
+            _places[10].Edges = new List<int> { 11, 12, 13, 14, 15 };
+            _places[11].Edges = new List<int> { 10, 12, 19, 20, 21 };
+            _places[12].Edges = new List<int> { 0, 3, 10, 11, 13, 22, 23 };
+            _places[13].Edges = new List<int> { 4, 10, 12, 14 };
+            _places[14].Edges = new List<int> { 10, 13, 15 };
+            _places[15].Edges = new List<int> { 10, 14 };
+            _places[16].Edges = new List<int> { 9, 17, 22, 23 };
+            _places[17].Edges = new List<int> { 16, 18, 19, 20, 21, 22 };
+            _places[18].Edges = new List<int> { 17, 19, 20, 24 };
+            _places[19].Edges = new List<int> { 17, 18, 20, 24 };
+            _places[20].Edges = new List<int> { 17, 18, 19, 21 };
+            _places[21].Edges = new List<int> { 11, 17, 20, 22 };
+            _places[22].Edges = new List<int> { 12, 16, 17, 21, 23 };
+            _places[23].Edges = new List<int> { 6, 9, 12, 16, 22 };
+            _places[24].Edges = new List<int> { 18, 19 };
         }
 
-        public List<Place> GetPlaces() => new List<Place>(_places);
-
-        // TODO возможно int index
+        public List<Place> GetPlaces => _places;
 
         public List<Place> GetWay(int start, int finish)
         {
-
-            // TODO поиск пути DFS
-            // way - искомый путь, minDensity - минимальная концентрация людей, позволяет получить "лучший" путь, сравнивая
-            // с localDensity при полном проходе DFS. DFS хранит путь и localDensity - сумма концентраций в каждой пройденой точке,
-            // за исключением точки назначения
-
-            //var minElement = tuple.OrderBy(x=>x.Item1).Min(x=>x.Item2).ToList();
-
-
             var way = new List<int>();
-            var minDensity = double.MaxValue;
+            const double minDensity = double.MaxValue;
             var path = new List<int>();
             var visited = new List<int>();
 
-            double _ = DFS(start, finish, path, visited, minDensity, 0, way);
+            DFS(start, finish, path, visited, minDensity, 0, way);
 
-            return GetString(way);
+            return way.Select(i => _places[i]).ToList();
         }
 
-        private double DFS(int current, int finish, List<int> path, List<int> visited, double minDensity, double localDensity, List<int> way)
+        private double DFS(int current, int finish, List<int> path, List<int> visited, double minDensity,
+            double localDensity, List<int> way)
         {
-
             var place = _places[current];
 
             path.Add(current);
@@ -139,25 +134,18 @@ namespace AaDS_Project.Data
 
             if (current == finish && localDensity - _places[current].Density < minDensity)
             {
-
                 way.Clear();
                 way.AddRange(path);
-
-                minDensity = localDensity;
 
                 path.RemoveAt(path.Count - 1);
                 visited.RemoveAt(visited.Count - 1);
 
-                return minDensity;
+                return localDensity - _places[current].Density;
             }
 
             foreach (var vertex in place.Edges)
-            {
                 if (!visited.Contains(vertex))
-                {
                     minDensity = DFS(vertex, finish, path, visited, minDensity, localDensity + place.Density, way);
-                }
-            }
 
             path.RemoveAt(path.Count - 1);
             visited.RemoveAt(visited.Count - 1);
@@ -165,6 +153,15 @@ namespace AaDS_Project.Data
             return minDensity;
         }
 
-        private List<Place> GetString(List<int> way) => way.Select(i => _places[i]).ToList();
+        public void AddPerson(string name)
+        {
+            foreach (var place in _places)
+            {
+                if (place.Name == name)
+                {
+                    place.NumberOfPeople++;
+                }
+            }
+        }
     }
 }

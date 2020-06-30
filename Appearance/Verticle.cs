@@ -1,21 +1,24 @@
-﻿using System.Windows.Media;
-using AaDS_Project.Data;
-using System.Windows;
+﻿#region
+
 using System.Globalization;
+using System.Windows;
+using System.Windows.Media;
+using AaDS_Project.Data;
+
+#endregion
 
 namespace AaDS_Project.Appearance
 {
-    class Verticle : Drawable
+    internal class Verticle : Drawable
     {
-        private FormattedText _formattedText;
-
-        private FormattedText _congestionText;
-
-        private SolidColorBrush _verticleDensityColor;
+        private readonly FormattedText _congestionText;
+        private readonly FormattedText _formattedText;
 
         private Point _placeCoordinate;
 
-        public Verticle (Place place)
+        private readonly SolidColorBrush _verticleDensityColor;
+
+        public Verticle(Place place)
         {
             _placeCoordinate = place.Coordinate;
 
@@ -26,7 +29,7 @@ namespace AaDS_Project.Appearance
                 14,
                 Brushes.Black);
 
-            _congestionText = new FormattedText(place.Density.ToString(),
+            _congestionText = new FormattedText(place.Density.ToString("0.00"),
                 CultureInfo.GetCultureInfo("en-us"),
                 FlowDirection.LeftToRight,
                 new Typeface("Verdana"),
@@ -34,23 +37,16 @@ namespace AaDS_Project.Appearance
                 Brushes.Black);
 
             if (place.Density > 1)
-            {
                 _verticleDensityColor = Brushes.Red;
-            }
             else if (place.Density > 0.6)
-            {
-                _congestionText.SetForegroundBrush(Brushes.Yellow);
-            }
+                _verticleDensityColor = Brushes.Yellow;
             else
-            {
                 _verticleDensityColor = Brushes.Green;
-            }
         }
 
         public override void Draw(DrawingContext ctx, ViewPort vp)
         {
-
-            Point pt = new Point(
+            var pt = new Point(
                 _placeCoordinate.X + vp.x1 / vp.scale,
                 _placeCoordinate.Y + vp.y1 / vp.scale);
 
